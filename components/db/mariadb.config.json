@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "plane",
+    "host": "localhost",
+    "port": "3306",
+    "dialect": "mysql"
+  },
+  "development2": {
+    "username": "root",
+    "password": "1234",
+    "database": "ipes",
+    "host": "172.21.0.2",
+    "port": "3306",
+    "dialect": "mysql",
+    "ssl": false
+  },
+  "production": {
+    "username": "app_energy",
+    "password": "3n3rg14_p051t1v4",
+    "database": "ee",
+    "schema": "app_energy",
+    "host": "10.108.15.145",
+    "dialect": "postgres",
+    "ssl": false
+  }
+}
