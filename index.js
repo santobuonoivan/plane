@@ -17,30 +17,13 @@ app.use(cors());
 //app.use(express.static('./public'));
 
 // Routes
-var authRouter = require('./Auth/AuthRoutes');
-var userRoutes = require('./users/routes/UserRoutes');
-var rolesRoutes = require('./users/routes/RoleRoutes');
-var permissionsRoutes = require('./users/routes/PermissionsRoutes');
-var userRolerRoutes = require('./users/routes/UserRolesRoutes');
-var userPermissions = require('./users/routes/UserPermissionsRoutes');
-var alumnRoutes = require('./components/alumno/router/alumno');
-var cajaRoutes = require('./components/caja/router/caja');
-/*
-var carrerasRoutes = require('./components/carreras/router/carrera');
- */
-var cuotasRoutes = require('./components/cuotas/router/cuotas');
-var materiasRoutes = require('./components/materias/router/materia');
-
-/*
-var clientsRoutes = require('./components/clients/routes/clientsRoutes');
-var locationsRoutes = require('./components/locations/routes/locationsRoutes');
-var sectorRoutes = require('./components/sector/routes/sectorRoutes');
-var sensorTypesRoutes = require('./components/sensorTypes/routes/sensorTypesRoutes');
-var sensorsRoutes = require('./components/sensors/routes/sensorsRoutes');
-var alarmRulesRoutes = require('./components/alarmsRules/routes/alarmRulesRoutes');
-
-var homeScreen = require('./components/graphicComponents/homeScreen/homeScreeRoutes');
-*/
+const authRouter = require('./Auth/AuthRoutes');
+const userRoutes = require('./users/routes/UserRoutes');
+const rolesRoutes = require('./users/routes/RoleRoutes');
+const permissionsRoutes = require('./users/routes/PermissionsRoutes');
+const userRolerRoutes = require('./users/routes/UserRolesRoutes');
+const userPermissions = require('./users/routes/UserPermissionsRoutes');
+const planeRoutes = require('./components/plane/routes/planes');
 
 app.use('/users', userRoutes);
 app.use('/auth',authRouter);
@@ -48,26 +31,8 @@ app.use('/roles', rolesRoutes);
 app.use('/permissions', permissionsRoutes);
 app.use('/userroles', userRolerRoutes);
 app.use('/userpermissions', userPermissions);
-app.use('/alumn', alumnRoutes);
+app.use('/plane', planeRoutes);
 
-/* TODO  se impleenta en los insert de alumno */
-//app.use('/documentacion', documentacionRoutes);
-
-app.use('/caja',cajaRoutes);
-/*
-
-app.use('/cuotas', cuotasRoutes);
- app.use('/pagos', pagosRoutes); */
-/*
-app.use('/carrera', carrerasRoutes);
-//app.use('/modalidades', modalidadesRoutes);
-//app.use('/turnos', sectorRoutes);
-
-app.use('/materias', materiasRoutes);
-*/
-//app.use('/notas', notassRoutes);
-
-//app.use('/usuarios', usuariosRoutes);
 
 
 app.listen(port, function () {
