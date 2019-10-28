@@ -17,12 +17,12 @@ router.get('/by_type/:type_id',[cors()/*, authMiddleware, authorization('clients
 router.post('/',[cors()/*, authMiddleware, authorization('clients','insert' )*/], planesController.insert_plane);
 
 /* UPDATE ONE */
-//router.put('/:id',[cors()/*, authMiddleware, authorization('clients','update')*/], planesController.update_plane);
+router.put('/:plane_id',[cors()/*, authMiddleware, authorization('clients','update')*/], planesController.update_plane);
 
 /* DELETE ONE (DESACTIVATE) */
-//router.post('/:id',[cors()/*, authMiddleware, authorization('clients','delete')*/], planesController.delete_plane);
+//router.post('/:plane_id',[cors()/*, authMiddleware, authorization('clients','delete')*/], planesController.delete_plane);
 
 /* GET ONE */
-//router.get('/:id',[cors()/*, authMiddleware, authorization('clients', 'show')*/], planesController.show_plane);
+router.get('/:plane_id',[cors()/*, authMiddleware, authorization('clients', 'show')*/], planesController.show_plane);
 
 module.exports = router;

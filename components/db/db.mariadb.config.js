@@ -20,6 +20,8 @@ db.permission_role = require('../../users/models/permission_role')(sequelize, Se
 db.plane = require('../../components/plane/models/planes')(sequelize, Sequelize);
 db.plane_type = require('../../components/plane/models/plane_type')(sequelize, Sequelize);
 db.estructure = require('../../components/estructure/models/estructures')(sequelize, Sequelize);
+db.piece = require('../../components/pieces/models/pieces')(sequelize, Sequelize);
+
 
 
 // Alumno

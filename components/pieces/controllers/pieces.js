@@ -1,61 +1,39 @@
-const { plane } = require('../../db/db.mariadb.config');
-const planeService = require('../services/planes');
+const { piece } = require('../../db/db.mariadb.config');
+const pieceService = require('../services/pieces');
 const _ = require('lodash');
 
 
 /* GET ALL */
-exports.all_planes = async function (req, res, next) {
+exports.all_pieces = async function (req, res, next) {
     try{
-        const planesList = await plane.findAll({include:['plane_type','estructure']});
-        if(planesList.length > 0)
-            return res.send({
-                ok:true,
-                planesList
-            });
-        return res.send({ok: false, message: 'planes not found'});
-    }catch (e) {
-        return res.status(400).send({error: e.errors[0].message});
-    }
-};
-
-
-/* GET ALL BY TYPE */
-exports.all_planes_by_type = async function (req, res, next) {
-    try{
-        let { type_id } = req.params;
-        const planesList = await plane.findAll({
-            where:{'plane_type_id': type_id},
-            include:['plane_type','estructure'],
-        });
-        if(planesList.length > 0)
-            return res.send({
-                ok:true,
-                planesList
-            });
-        return res.send({ok: false, message: 'planes by type not found'});
+        const piecesList = await piece.findAll(/*{ include:['piece_type','estructure']}*/);
+        if(piecesList.length > 0)
+            return res.send({ ok:true, piecesList });
+        return res.send({ok: false, message: 'pieces not found'});
     }catch (e) {
         return res.status(400).send({error: e.errors.message});
     }
 };
 
-/* ADD ONE */
-exports.insert_plane = async function (req, res, next) {
-    //const { error } = planeService.validateplane(req.body);
-    //if(error) return res.status(400).send(error.details[0].message);
-    let planes = await plane.findAll({where:{'plane_code':req.body.plane_code}});
 
-    if(planes.length > 0) return res.status(400).send({
+/* ADD ONE */
+exports.insert_piece = async function (req, res, next) {
+    //const { error } = pieceService.validatepiece(req.body);
+    //if(error) return res.status(400).send(error.details[0].message);
+    let pieces = await piece.findAll({where:{'piece_code':req.body.piece_code}});
+
+    if(pieces.length > 0) return res.status(400).send({
         ok:false,
-        menssage:'Ya hay un plane con el plane_code asignado'
+        menssage:'Ya hay un piece con el piece_code asignado'
     });
     let result = null, cont = 0;
     while(result == null && cont <=3){
         try{
-            let maxId = await plane.sequelize.query("select max(plane_id) as max from planes");
+            let maxId = await piece.sequelize.query("select max(piece_id) as max from pieces");
             maxId = maxId[0][0].max;
             maxId +=1 ;
             req.body.id = maxId;
-            result = await plane.create(req.body);
+            result = await piece.create(req.body);
         }catch (e) {
             cont += 1;
         }
@@ -76,11 +54,11 @@ exports.insert_plane = async function (req, res, next) {
 };
 
 /* UPDATE ONE */
-exports.update_plane = async function (req, res, next) {
-    //const { error } = planeService.validateplane(req.body);
+exports.update_piece = async function (req, res, next) {
+    //const { error } = pieceService.validatepiece(req.body);
     //if(error) return res.status(400).send(error.details[0].message);
     try {
-        let result = await plane.update(req.body,{where: {plane_id:req.params.plane_id}});
+        let result = await piece.update(req.body,{where: {piece_id:req.params.piece_id}});
         return res.send({
             ok: true,
             menssage: `${ result } records updated`
@@ -94,29 +72,29 @@ exports.update_plane = async function (req, res, next) {
 };
 
 /* DELETE ONE (desactivar)*/
-exports.delete_plane = async function(req, res, next){
+exports.delete_piece = async function(req, res, next){
     try {
-        let result = await plane.update({activo:false},{where:{plane_id:req.params.id}});
+        let result = await piece.update({activo:false},{where:{piece_id:req.params.id}});
         //console.log(result);
         return res.send({
             ok:true,
-            menssage: `${result} planes deleted`
+            menssage: `${result} pieces deleted`
         });
     }catch (e) {
         return res.status(400).send({
             ok:false,
-            menssage:`no se puede desactivar/borrar el plane: ${e.errors[0].message}`
+            menssage:`no se puede desactivar/borrar el piece: ${e.errors[0].message}`
         });
     }
 };
 
 /* GET ONE */
-exports.show_plane = async function (req, res, next) {
+exports.show_piece = async function (req, res, next) {
     try {
-        let result = await plane.findOne({
-            include: ['estructure','plane_type'],
+        let result = await piece.findOne({
+            include: ['estructure','piece_type'],
             where: {
-                plane_id: req.params.plane_id
+                piece_id: req.params.piece_id
                 /*
                 $or: [
                     {

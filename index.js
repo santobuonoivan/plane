@@ -24,6 +24,7 @@ const permissionsRoutes = require('./users/routes/PermissionsRoutes');
 const userRolerRoutes = require('./users/routes/UserRolesRoutes');
 const userPermissions = require('./users/routes/UserPermissionsRoutes');
 const planeRoutes = require('./components/plane/routes/planes');
+const piecesRoutes = require('./components/pieces/routes/pieces');
 
 app.use('/users', userRoutes);
 app.use('/auth',authRouter);
@@ -32,6 +33,7 @@ app.use('/permissions', permissionsRoutes);
 app.use('/userroles', userRolerRoutes);
 app.use('/userpermissions', userPermissions);
 app.use('/plane', planeRoutes);
+app.use('/piece',piecesRoutes);
 
 
 
